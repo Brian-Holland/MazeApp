@@ -11,7 +11,7 @@ const render = Render.create({
     engine: engine,
     //dimensions of the canvas
     options: {
-        wireframes: false,
+        wireframes: true,
         width,
         height
     }
@@ -21,16 +21,16 @@ Runner.run(Runner.create(), engine);
 
 //walls
 const walls = [
-    Bodies.rectangle(400, 0, 800, 40, {
+    Bodies.rectangle(width / 2, 0, width, 40, {
         isStatic: true
     }),
-    Bodies.rectangle(400, 600, 800, 40, {
+    Bodies.rectangle(width / 2, height, width, 40, {
         isStatic: true
     }),
-    Bodies.rectangle(0, 300, 40, 600, {
+    Bodies.rectangle(0, height / 2, 40, height, {
         isStatic: true
     }),
-    Bodies.rectangle(800, 300, 40, 600, {
+    Bodies.rectangle(width, height / 2, 40, height, {
         isStatic: true
     })
 ];

@@ -1,5 +1,6 @@
 const { Engine, Render, Runner, World, Bodies } = Matter;
 
+const cells = 3;
 const height = 600;
 const width = 600;
 
@@ -39,8 +40,34 @@ World.add(world, walls);
 //Maze generation
 
 //create array of 3
-const grid = Array(3)
-    //fill each index with false
-    .fill(false)
+const grid = Array(cells)
+    //fill each index with null
+    .fill(null)
     //fill each index with an array of 3 with false
-    .map(() => Array(3).fill(false));
+    .map(() => Array(cells).fill(false));
+
+const verticals = Array(cells)
+    .fill(null)
+    .map(() => Array(cells - 1).fill(false));
+
+const horizontals = Array(cells - 1)
+    .fill(null)
+    .map(() => Array(cells).fill(false));
+
+const startRow = Math.floor(Math.random() * cells);
+const startColumn = Math.floor(Math.random() * cells);
+
+const stepThroughCell = (row, column) => {
+    //if visited cell at [row,column], return
+    if (grid[row][column]) {
+        return;
+    }
+    //mark cell as visited
+    grid[row][column] = true;
+    //assemble random-ordered list of neighbors
+    //for each neighbors
+    //see if neighbor is out of bounds
+    //check if visted neighbor, continue to next neighbor
+    //remove wall from either horiz or vert
+    //visit next cell
+};

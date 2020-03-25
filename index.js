@@ -35,3 +35,12 @@ const walls = [
     })
 ];
 World.add(world, walls);
+
+//Maze generation
+
+//create array of 3
+const grid = Array(3)
+    //fill each index with false
+    .fill(false)
+    //fill each index with an array of 3 with false
+    .map(() => Array(3).fill(false));

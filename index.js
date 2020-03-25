@@ -4,6 +4,8 @@ const cells = 3;
 const height = 600;
 const width = 600;
 
+const unitLength = width / cells;
+
 const engine = Engine.create();
 const { world } = engine;
 const render = Render.create({
@@ -83,20 +85,52 @@ const stepThroughCell = (row, column) => {
     //assemble random-ordered list of neighbors
     const neighbors = shuffle([
         //top
-        [row - 1, column],
+        [row - 1, column, "up"],
         //right
-        [row, column + 1],
+        [row, column + 1, "right"],
         //bottom
-        [row + 1, column],
+        [row + 1, column, "down"],
         //left
-        [row, column - 1]
+        [row, column - 1, "left"]
     ]);
-    console.log(neighbors);
+
     //for each neighbors
-    //see if neighbor is out of bounds
-    //check if visted neighbor, continue to next neighbor
-    //remove wall from either horiz or vert
-    //visit next cell
+    for (let neighbor of neighbors) {
+        const [nextRow, nextColumn, direction] = neighbor;
+        //see if neighbor is out of bounds
+        if (
+            nextRow < 0 ||
+            nextRow >= cells ||
+            nextColumn < 0 ||
+            nextColumn >= cells
+        ) {
+            continue;
+        }
+        //check if visted neighbor, continue to next neighbor
+        if (grid[nextRow][nextColumn]) {
+            continue;
+        }
+        //remove wall from either horiz or vert
+        if (direction === "left") {
+            verticals[row][column - 1] = true;
+        } else if (direction === "right") {
+            verticals[row][column] = true;
+        } else if (direction === "up") {
+            horizontals[row - 1][column] = true;
+        } else if (direction === "down") {
+            horizontals[row][column] = true;
+        }
+        stepThroughCell(nextRow, nextColumn);
+    }
 };
 
-stepThroughCell(1, 1);
+stepThroughCell(startRow, startColumn);
+
+horizontals.forEach(row => {
+    row.forEach(open => {
+        if (open === true) {
+            return;
+        }
+        const wall = Bodies.rectangle();
+    });
+});

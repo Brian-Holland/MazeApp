@@ -139,6 +139,7 @@ horizontals.forEach((row, rowIndex) => {
             unitLength,
             10,
             {
+                label: "wall",
                 isStatic: true
             }
         );
@@ -157,7 +158,7 @@ verticals.forEach((row, rowIndex) => {
             rowIndex * unitLength + unitLength / 2,
             10,
             unitLength,
-            { isStatic: true }
+            { label: "wall", isStatic: true }
         );
         World.add(world, wall);
     });
@@ -167,8 +168,8 @@ verticals.forEach((row, rowIndex) => {
 const goal = Bodies.rectangle(
     width - unitLength / 2,
     height - unitLength / 2,
-    unitLength * 0.5,
-    unitLength * 0.5,
+    unitLength * 0.7,
+    unitLength * 0.7,
     {
         label: "goal",
         isStatic: true
@@ -206,9 +207,14 @@ Events.on(engine, "collisionStart", event => {
         const labels = ["ball", "goal"];
         if (
             labels.includes(collision.bodyA.label) &&
-            labels.includes(collsion.bodyB.label)
+            labels.includes(collision.bodyB.label)
         ) {
-            console.log("user won");
+            world.gravity.y = 1;
+            world.bodies.forEach(body => {
+                if (body.label === "wall") {
+                    Body.setStatic(body, false);
+                }
+            });
         }
     });
 });

@@ -229,6 +229,8 @@ Events.on(engine, "collisionStart", event => {
             labels.includes(collision.bodyA.label) &&
             labels.includes(collision.bodyB.label)
         ) {
+            //remove hidden class to reveal win message
+            document.querySelector(".winner").classList.remove("hidden");
             //remove gravity if won
             world.gravity.y = 1;
             //let walls fall down

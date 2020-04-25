@@ -8,6 +8,6 @@ Randomly generated maze using Matter JS that will always have one path from the 
 
 ### Built Using
 * JavaScript
-  *Matter JS
+  * Matter JS
 * Minimal HTML
 * Minimal CSS
